@@ -16,7 +16,7 @@
    :dev {:build-hooks [(teknql.tailwind/start-watch!)]}
    :release {:build-hooks [(teknql.tailwind/compile-release!)]}
    :tailwind/output "resources/public/css/site.css"
-   :tailwind/files {:base-path "./." ;; Path to directory housing `tailwind.config.js`
+   :tailwind/files {:base-path "." ;; Path to directory housing `tailwind.config.js`
                     :tailwind.css "./resources/css/site.css"}} ;; Path to tailwind entrypoint
   :prod
   {:target :browser
