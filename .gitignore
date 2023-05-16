@@ -1,5 +1,6 @@
 node_modules
 resources/public/js
+resources/public/css
 .calva
 .cpcache
 .shadow-cljs

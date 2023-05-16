@@ -71,6 +71,5 @@
                 (e/for-by :db/id [{:keys [db/id]} (todo-records db)]
                   (TodoItem. id))))
             (dom/p (dom/props {:class "counter text-sm text-gray-400"})
-              (dom/span (dom/props {:class "count"}) (dom/text (e/server (todo-count db))))
-              (dom/text " items left"))))
-        (dom/script (dom/props {:src "https://cdn.tailwindcss.com"}))))))
+              (dom/span (dom/props {:class "text-xl"}) (dom/text (e/server (todo-count db))))
+              (dom/text " items left"))))))))

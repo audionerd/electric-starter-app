@@ -9,7 +9,8 @@
         org.clojure/clojurescript {:mvn/version "1.11.60"}
         org.clojure/tools.logging {:mvn/version "1.2.4"}
         ch.qos.logback/logback-classic {:mvn/version "1.2.11"}
-        ring-basic-authentication/ring-basic-authentication {:mvn/version "1.1.1"}}
+        ring-basic-authentication/ring-basic-authentication {:mvn/version "1.1.1"}
+        com.teknql/shadow-cljs-tailwind-jit {:mvn/version "1.0.0"}}
  :aliases {:dev
            {:extra-deps
             {binaryage/devtools {:mvn/version "1.0.6"}

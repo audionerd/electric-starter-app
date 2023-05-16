@@ -5,13 +5,19 @@
   {:target :browser
    :devtools {:watch-dir "resources/public" ; live reload CSS
               :hud #{:errors :progress}
-              :ignore-warnings true} ; warnings don't prevent hot-reload
+              :ignore-warnings true ; warnings don't prevent hot-reload
+              :http-root "resources/public/"} ;; Must be set to infer default purge targets.
    :output-dir "resources/public/js"
    :asset-path "/js"
    :modules {:main {:entries [user]
                     :init-fn user/start!}}
    :build-hooks [(shadow.cljs.build-report/hook {:output-to "target/build_report.html"})
-                 (user/rcf-shadow-hook)]}
+                 (user/rcf-shadow-hook)]
+   :dev {:build-hooks [(teknql.tailwind/start-watch!)]}
+   :release {:build-hooks [(teknql.tailwind/compile-release!)]}
+   :tailwind/output "resources/public/css/site.css"
+   :tailwind/files {:base-path "./." ;; Path to directory housing `tailwind.config.js`
+                    :tailwind.css "./resources/css/site.css"}} ;; Path to tailwind entrypoint
   :prod
   {:target :browser
    :output-dir "resources/public/js"
