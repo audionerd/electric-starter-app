@@ -21,12 +21,12 @@
                 (d/transact! !conn [{:db/id id
                                      :task/status (if v :done :active)}])
                 nil))
-            (dom/props {:id id}))
+            (dom/props {:id id :class "mr-2"}))
           (dom/label (dom/props {:for id}) (dom/text (e/server (:task/description e)))))))))
 
 (e/defn InputSubmit [F]
   ; Custom input control using lower dom interface for Enter handling
-  (dom/input (dom/props {:placeholder "Buy milk"})
+  (dom/input (dom/props {:class "my-2 border px-2 py-1 rounded" :placeholder "Buy milk"})
     (dom/on "keydown" (e/fn [e]
                         (when (= "Enter" (.-key e))
                           (when-some [v (contrib.str/empty->nil (-> e .-target .-value))]
@@ -55,15 +55,22 @@
   (e/server
     (binding [db (e/watch !conn)]
       (e/client
-        (dom/link (dom/props {:rel :stylesheet :href "/todo-list.css"}))
-        (dom/h1 (dom/text "minimal todo list"))
-        (dom/p (dom/text "it's multiplayer, try two tabs"))
-        (dom/div (dom/props {:class "todo-list"})
-          (TodoCreate.)
-          (dom/div (dom/props {:class "todo-items"})
-            (e/server
-              (e/for-by :db/id [{:keys [db/id]} (todo-records db)]
-                (TodoItem. id))))
-          (dom/p (dom/props {:class "counter"})
-            (dom/span (dom/props {:class "count"}) (dom/text (e/server (todo-count db))))
-            (dom/text " items left")))))))
+        (dom/div
+          (dom/props {:class "w-96 mx-auto py-3 px-3 pt-12"})
+          (dom/h1
+            (dom/props {:class "text-xl font-bold"})
+            (dom/text "Minimal Todo List"))
+          (dom/p
+            (dom/props {:class "text-sm text-gray-400"})
+            (dom/text "It’s multiplayer! Try two tabs 😀"))
+          (dom/div
+            (dom/props {:class "my-4"})
+            (TodoCreate.)
+            (dom/div (dom/props {:class "my-4"})
+              (e/server
+                (e/for-by :db/id [{:keys [db/id]} (todo-records db)]
+                  (TodoItem. id))))
+            (dom/p (dom/props {:class "counter text-sm text-gray-400"})
+              (dom/span (dom/props {:class "count"}) (dom/text (e/server (todo-count db))))
+              (dom/text " items left"))))
+        (dom/script (dom/props {:src "https://cdn.tailwindcss.com"}))))))
